@@ -8,7 +8,7 @@ var waitingList = [];
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = process.env.PORT || 3000;
+var PORT = 3000;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -36,9 +36,9 @@ app.get("/api/reservations", function(req, res) {
     return res.json(tables);
 });
 
-    app.get("/api/waiting", function(req, res) {
-        return res.json(waitingList);
-      });
+app.get("/api/waiting", function(req, res) {
+    return res.json(waitingList);
+});
 
 
 app.post("/api/reservations", function(req, res){
@@ -46,8 +46,12 @@ app.post("/api/reservations", function(req, res){
     console.log(newReservation);
     if (tables.length < 5){
         tables.push(newReservation);
+        var message = "Your reservation has been recieved."
+        console.log(message);
     } else {
         waitingList.push(newReservation);
+        message = "Our tables are currently full. You have been placed on the waiting list."
+        console.log(message);
     }
 });
 // Starts the server to begin listening
