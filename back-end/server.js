@@ -2,6 +2,8 @@
 // =============================================================
 var express = require("express");
 var path = require("path");
+var tables = [];
+var waitingList = [];
 
 // Sets up the Express App
 // =============================================================
@@ -26,20 +28,30 @@ app.get("/make", function(req, res) {
 });
 
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "../home.html"));
-});
+    res.sendFile(path.join(__dirname, "../home.html"));
+  });
 
 // Displays all characters
 app.get("/api/reservations", function(req, res) {
-  return res.json(tables);
+    return res.json(tables);
 });
 
-app.get("/api/waiting", function(req, res) {
-    return res.json(waitingList);
-  });
+    app.get("/api/waiting", function(req, res) {
+        return res.json(waitingList);
+      });
 
+
+app.post("/api/reservations", function(req, res){
+    var newReservation = req.body;
+    console.log(newReservation);
+    if (tables.length < 5){
+        tables.push(newReservation);
+    } else {
+        waitingList.push(newReservation);
+    }
+});
 // Starts the server to begin listening
 // =============================================================
 app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+    console.log("App listening on PORT " + PORT);
 });
