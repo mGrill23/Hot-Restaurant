@@ -27,15 +27,9 @@ app.get("/reserve", function(req, res) {
   res.sendFile(path.join(__dirname, "../make.html"));
 });
 
-<<<<<<< HEAD
 app.get("/home", function(req, res) {
   res.sendFile(path.join(__dirname, "../home.html"));
 });
-=======
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../home.html"));
-  });
->>>>>>> f28974f38246a479bb3365ddb4526cada6883258
 
 // Displays all characters
 app.get("/api/reservations", function(req, res) {
